@@ -2,6 +2,3 @@
 .Rhistory
 .RData
 .Rproj.user/
-
-# Data - example datasets can be shared
-outputs/processed/
