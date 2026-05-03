@@ -27,7 +27,7 @@ Raw data with missing values
        ↓
 2. Imputation (MNAR: minimum method | MCAR: KNN sample-wise)
        ↓
-3. Validation (RMSE, Pearson correlation, scatter plot)
+3. Validation (RMSE, Pearson correlation, scatter plot, PCA)
        ↓
 4. Transformation (square root)
        ↓
@@ -103,6 +103,9 @@ The choice of imputation method should always be guided by the nature of the mis
 
 Square root transformation and autoscaling effectively reduced data asymmetry and standardized variable scales, making the processed data suitable for multivariate analyses.
 
+PCA comparison confirmed that imputation preserved the overall structure 
+of the data, with imputed samples clustering close to their corresponding 
+complete dataset counterparts.
 
 ## Status
 

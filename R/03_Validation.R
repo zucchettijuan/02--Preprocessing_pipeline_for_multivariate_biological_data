@@ -12,7 +12,7 @@ library(tidyverse)
 #Upload data
 
 dataset_complete <- read.csv("data/example/example_complete.csv", check.names = FALSE, sep=";") 
-dataset_imputed <- read.csv("outputs/processed/dataset_imputed_20_MCAR.csv", check.names = FALSE)
+dataset_imputed <- read.csv("outputs/processed/dataset_imputed_10_MCAR.csv", check.names = FALSE)
 dataset_missing <- read.csv("data/example/example_missing_20.csv", check.names = FALSE)
 variables <- colnames(dataset_complete[, -c(1,2)])
 
@@ -60,4 +60,31 @@ ggplot(data_plot, aes(x = imputed, y = real)) +
   annotate("text", x = min(imputed_values), y = max(real_values) * 0.8,
            label = paste("relative RMSE =", round(rmse_relativo, 2)),
            hjust = 0)
+
+# =============================================================================
+# 5. PCA validation: complete vs imputed data
+# =============================================================================
+
+library(FactoMineR)
+
+pcacomp <- PCA(dataset_complete[, variables], graph = FALSE)
+pcaimpt <- PCA(dataset_imputed[, variables], graph = FALSE)
+
+
+png("outputs/figures/PCA_comparison.png", width = 800, height = 600, res = 120)
+plot(pcacomp$ind$coord[,1], pcacomp$ind$coord[,2],
+     col = "#054270", pch = 16, main = "PCA comparison",
+     xlab = "PC1", ylab = "PC2")
+abline(h = 0, v = 0, lty = 2, col = "gray")
+points(pcaimpt$ind$coord[,1], pcaimpt$ind$coord[,2],
+       col = "#9C0720", pch = 16)
+legend("topright", legend = c("Complete", "Imputed"),
+       col = c("#054270","#9C0720"), pch = 16)
+text(pcacomp$ind$coord[,1], pcacomp$ind$coord[,2], 
+     labels = dataset_complete$SAMPLE, 
+     col = "#054270", cex = 0.7, pos = 3)
+text(pcaimpt$ind$coord[,1], pcaimpt$ind$coord[,2], 
+     labels = dataset_imputed$SAMPLE, 
+     col = "#9C0720", cex = 0.7, pos = 3)
+dev.off()
 
