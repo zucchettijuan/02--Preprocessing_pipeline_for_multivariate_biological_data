@@ -46,7 +46,7 @@ Raw data with missing values
        ↓
 1. Missing data diagnosis (interactive — user input)
        ↓
-2. Imputation (MNAR: minimum method | MCAR: KNN sample-wise)
+2. Imputation (MNAR: LoD method| MCAR: KNN sample-wise)
        ↓
 3. Validation (RMSE, Pearson correlation, scatter plot, PCA)
        ↓
@@ -61,7 +61,7 @@ Processed data — ready for PCA, correlation analysis, or machine learning
 
 | Type | Description | Example | Method |
 |----|----|----|----|
-| MNAR | Below detection limit | Metabolite not detected by GC-MS | Minimum method |
+| MNAR | Below detection limit | Metabolite not detected by GC-MS | LoD method |
 | MCAR | Random technical failure | Instrument error on one sample | KNN (sample-wise) |
 
 ## How to use this pipeline with your own data
@@ -133,7 +133,7 @@ the percentage of missing data. Performance was consistent across 10%,
 of missing data in biological datasets.
 
 The choice of imputation method should always be guided by the nature of
-the missing data — applying minimum-based imputation to MCAR data or KNN
+the missing data — applying LoD method imputation to MCAR data or KNN
 to MNAR data would introduce systematic bias in downstream analyses.
 
 Square root transformation and autoscaling effectively reduced data
